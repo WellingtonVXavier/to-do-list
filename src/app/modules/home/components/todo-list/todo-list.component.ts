@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 
 //Interface
 import { TaskList } from './../../model/task-list';
@@ -8,22 +8,21 @@ import { TaskList } from './../../model/task-list';
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.less']
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements DoCheck {
 
-
-  public taskList: Array<TaskList> = [
-  ];
+  public taskList: Array<TaskList> = [ ];
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngDoCheck() {
+    this.taskList.sort( (first, last) => Number(first.checked) - Number(last.checked));    
   }
 
-  deleteItemTaskList(event: number) {
+  public deleteItemTaskList(event: number) {
     this.taskList.splice(event, 1);
   }
 
-  deleteAllTaskList() {
+  public deleteAllTaskList() {
     const confirm = window.confirm("Você deseja realmente Deletar tudo?");
 
     if (confirm) {
@@ -31,7 +30,16 @@ export class TodoListComponent implements OnInit {
     }
   }
 
-  setEmitTaskList(event: string) {
+  public setEmitTaskList(event: string) {
     this.taskList.push({ task: event, checked: false })
+  }
+
+  public validarInput(event: string, index: number){
+    if(!event.length){
+      const confirm = window.confirm("Task está vazia, deseja Deletar? ");
+      if(confirm){
+        this.deleteItemTaskList(index);
+      }
+    }
   }
 }

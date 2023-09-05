@@ -23,5 +23,4 @@ export class TodoInputAddItensComponent implements OnInit{
       this.addItemTaskList = "";
     }
   }
-
 }
