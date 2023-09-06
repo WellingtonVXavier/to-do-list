@@ -3,7 +3,7 @@
         <li *ngFor="let item of taskList; let i = index">
             <input type="checkbox" [(ngModel)]="item.checked">
             <input type="text" 
-                (keyup)="validarInput(item.task, i)" 
+                (keyup)="validarInput(item.task, i)"
                 [(ngModel)]="item.task"
                 [ngClass]="{'checked' : item.checked}">
 
